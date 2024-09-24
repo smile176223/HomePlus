@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public final class RoomCaptureRepresentable: UIViewRepresentable {
+public struct RoomCaptureRepresentable: UIViewRepresentable {
     
     public let roomCaptureModel: RoomCaptureModel
     

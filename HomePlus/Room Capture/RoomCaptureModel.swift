@@ -11,7 +11,7 @@ import RoomPlan
 public final class RoomCaptureModel: RoomCaptureSessionDelegate {
     
     private lazy var roomCaptureView: RoomCaptureView = {
-        let view = RoomCaptureView(frame: .zero)
+        let view = RoomCaptureView()
         view.captureSession.delegate = self
         return view
     }()

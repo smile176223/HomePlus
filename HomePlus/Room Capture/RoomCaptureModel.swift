@@ -31,7 +31,8 @@ public final class RoomCaptureModel: RoomCaptureSessionDelegate, ObservableObjec
     }
     
     @Published var status: Status = .initial
-    @Published var captureData: CapturedRoomData? = nil
+    var finalResults: CapturedRoom?
+    @Published var activityItem: ActivityItem?
 
     public func startCapture() {
         roomCaptureView.captureSession.run(configuration: captureSessionConfiguration)
@@ -44,14 +45,27 @@ public final class RoomCaptureModel: RoomCaptureSessionDelegate, ObservableObjec
     }
     
     public func exportData() {
-        
+        let destinationFolderURL = FileManager.default.temporaryDirectory.appending(path: "Export")
+        let destinationURL = destinationFolderURL.appending(path: "Room.usdz")
+        let capturedRoomURL = destinationFolderURL.appending(path: "Room.json")
+
+        do {
+            try FileManager.default.createDirectory(at: destinationFolderURL, withIntermediateDirectories: true)
+            let jsonEncoder = JSONEncoder()
+            let jsonData = try jsonEncoder.encode(finalResults)
+            try jsonData.write(to: capturedRoomURL)
+            try finalResults?.export(to: destinationURL, exportOptions: .parametric)
+            
+            activityItem = ActivityItem(items: [destinationFolderURL])
+            
+        } catch {
+            print("Error = \(error)")
+        }
     }
     
     public func captureSession(_ session: RoomCaptureSession, didEndWith data: CapturedRoomData, error: (any Error)?) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            
-            self.captureData = data
+        Task {
+            finalResults = try? await roomBuilder.capturedRoom(from: data)
         }
     }
 }

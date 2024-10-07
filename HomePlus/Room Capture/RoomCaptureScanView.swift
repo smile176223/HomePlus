@@ -11,8 +11,6 @@ public struct RoomCaptureScanView: View {
     
     @ObservedObject private var model = RoomCaptureModel()
     
-    @State private var isCapturing: Bool = false
-    
     public var body: some View {
         ZStack {
             RoomCaptureRepresentable(roomCaptureModel: model)
@@ -22,26 +20,25 @@ public struct RoomCaptureScanView: View {
             
             actionView()
         }
+        .toolbar {
+            Button("Done", action: model.stopCapture)
+        }
     }
     
     @ViewBuilder
     private func actionView() -> some View {
-        VStack {
-            Spacer()
+        switch model.status {
+        case .initial, .capturing:
+            EmptyView()
             
-            switch model.status {
-            case .initial:
-                EmptyView()
+        case .finished:
+            VStack {
+                Spacer()
                 
-            case .capturing:
-                CapsuleView {
-                    Button("Done", action: model.stopCapture)
-                }
-                
-            case .finished:
                 CapsuleView {
                     Button("Export", action: model.exportData)
                 }
+                .activitySheet($model.activityItem)
             }
         }
     }

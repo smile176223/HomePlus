@@ -16,7 +16,7 @@ public struct RoomCaptureRepresentable: UIViewRepresentable {
     }
     
     public func makeUIView(context: Context) -> some UIView {
-        roomCaptureModel.captureView()
+        roomCaptureModel.roomCaptureView
     }
     
     public func updateUIView(_ uiView: UIViewType, context: Context) {}

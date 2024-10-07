@@ -8,9 +8,9 @@
 import Foundation
 import RoomPlan
 
-public final class RoomCaptureModel: RoomCaptureSessionDelegate {
+public final class RoomCaptureModel: RoomCaptureSessionDelegate, ObservableObject {
     
-    private lazy var roomCaptureView: RoomCaptureView = {
+    private(set) lazy var roomCaptureView: RoomCaptureView = {
         let view = RoomCaptureView()
         view.captureSession.delegate = self
         return view
@@ -24,6 +24,8 @@ public final class RoomCaptureModel: RoomCaptureSessionDelegate {
         RoomBuilder(options: [.beautifyObjects])
     }()
     
+    @Published var captureData: CapturedRoomData? = nil
+
     public func startCapture() {
         roomCaptureView.captureSession.run(configuration: captureSessionConfiguration)
     }
@@ -32,7 +34,7 @@ public final class RoomCaptureModel: RoomCaptureSessionDelegate {
         roomCaptureView.captureSession.stop()
     }
     
-    public func captureView() -> RoomCaptureView {
-        roomCaptureView
+    public func captureSession(_ session: RoomCaptureSession, didEndWith data: CapturedRoomData, error: (any Error)?) {
+        captureData = data
     }
 }

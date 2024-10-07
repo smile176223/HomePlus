@@ -9,12 +9,40 @@ import SwiftUI
 
 public struct RoomCaptureScanView: View {
     
-    private let model = RoomCaptureModel()
+    @ObservedObject private var model = RoomCaptureModel()
+    
+    @State private var isCapturing: Bool = false
     
     public var body: some View {
-        RoomCaptureRepresentable(roomCaptureModel: model)
-            .ignoresSafeArea(.all)
-            .onAppear(perform: model.startCapture)
-            .onDisappear(perform: model.stopCapture)
+        ZStack {
+            RoomCaptureRepresentable(roomCaptureModel: model)
+                .ignoresSafeArea(.all)
+                .onAppear(perform: startCapture)
+                .onDisappear(perform: stopCapture)
+            
+            VStack {
+                Spacer()
+                
+                Button("Done", action: stopCapture)
+                .padding()
+                .background(Color("AccentColor"))
+                .foregroundColor(.white)
+                .clipShape(Capsule())
+                .fontWeight(.bold)
+                .padding(.bottom)
+            }
+        }
+    }
+    
+    private func startCapture() {
+        isCapturing = true
+        model.startCapture()
+    }
+    
+    private func stopCapture() {
+        if isCapturing {
+            isCapturing = false
+            model.stopCapture()
+        }
     }
 }

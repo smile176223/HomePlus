@@ -320,7 +320,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Home+";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Scan your room !";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scan your room";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save floor plan to photo";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -362,7 +363,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Home+";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Scan your room !";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scan your room";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Save floor plan to photo";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -25,27 +25,7 @@ public struct RoomCaptureScanView: View {
         .toolbar {
             Button("Done", action: model.stopCapture)
         }
-        .fullScreenCover(isPresented: $isShowingFloorPlan) {
-            let floorPlanScene = FloorPlanScene(capturedRoom: model.finalResults!)
-            
-            ZStack {
-                SpriteView(scene: floorPlanScene)
-                    .ignoresSafeArea()
-                
-                VStack {
-                    HStack {
-                        Button("Back") {
-                            isShowingFloorPlan = false
-                        }
-                        Spacer()
-                        Button("Save") {
-                            floorPlanScene.captureScene()
-                        }
-                    }
-                    Spacer()
-                }
-            }
-        }
+        .fullScreenCover(isPresented: $isShowingFloorPlan, content: floorPlanView)
     }
     
     @ViewBuilder
@@ -81,6 +61,39 @@ public struct RoomCaptureScanView: View {
                     }
                 }
                 .padding([.leading, .trailing, .bottom], 24)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func floorPlanView() -> some View {
+        let floorPlanScene = FloorPlanScene(capturedRoom: model.finalResults!)
+        
+        ZStack {
+            SpriteView(scene: floorPlanScene)
+                .ignoresSafeArea()
+            
+            VStack {
+                HStack {
+                    CircleView {
+                        Button {
+                            isShowingFloorPlan = false
+                        } label: {
+                            Image(systemName: "arrow.backward")
+                        }
+                    }
+                    Spacer()
+                    CircleView {
+                        Button {
+                            floorPlanScene.captureScene()
+                        } label: {
+                            Image(systemName: "photo.badge.arrow.down")
+                        }
+                    }
+                }
+                .padding([.leading, .trailing], 24)
+                
+                Spacer()
             }
         }
     }

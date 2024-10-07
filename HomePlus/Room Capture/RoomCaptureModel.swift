@@ -24,17 +24,34 @@ public final class RoomCaptureModel: RoomCaptureSessionDelegate, ObservableObjec
         RoomBuilder(options: [.beautifyObjects])
     }()
     
+    public enum Status {
+        case initial
+        case capturing
+        case finished
+    }
+    
+    @Published var status: Status = .initial
     @Published var captureData: CapturedRoomData? = nil
 
     public func startCapture() {
         roomCaptureView.captureSession.run(configuration: captureSessionConfiguration)
+        status = .capturing
     }
     
     public func stopCapture() {
         roomCaptureView.captureSession.stop()
+        status = .finished
+    }
+    
+    public func exportData() {
+        
     }
     
     public func captureSession(_ session: RoomCaptureSession, didEndWith data: CapturedRoomData, error: (any Error)?) {
-        captureData = data
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            self.captureData = data
+        }
     }
 }

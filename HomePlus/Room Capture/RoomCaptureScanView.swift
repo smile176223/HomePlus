@@ -16,33 +16,33 @@ public struct RoomCaptureScanView: View {
     public var body: some View {
         ZStack {
             RoomCaptureRepresentable(roomCaptureModel: model)
-                .ignoresSafeArea(.all)
-                .onAppear(perform: startCapture)
-                .onDisappear(perform: stopCapture)
+                .ignoresSafeArea()
+                .onAppear(perform: model.startCapture)
+                .onDisappear(perform: model.stopCapture)
             
-            VStack {
-                Spacer()
-                
-                Button("Done", action: stopCapture)
-                .padding()
-                .background(Color("AccentColor"))
-                .foregroundColor(.white)
-                .clipShape(Capsule())
-                .fontWeight(.bold)
-                .padding(.bottom)
-            }
+            actionView()
         }
     }
     
-    private func startCapture() {
-        isCapturing = true
-        model.startCapture()
-    }
-    
-    private func stopCapture() {
-        if isCapturing {
-            isCapturing = false
-            model.stopCapture()
+    @ViewBuilder
+    private func actionView() -> some View {
+        VStack {
+            Spacer()
+            
+            switch model.status {
+            case .initial:
+                EmptyView()
+                
+            case .capturing:
+                CapsuleView {
+                    Button("Done", action: model.stopCapture)
+                }
+                
+            case .finished:
+                CapsuleView {
+                    Button("Export", action: model.exportData)
+                }
+            }
         }
     }
 }

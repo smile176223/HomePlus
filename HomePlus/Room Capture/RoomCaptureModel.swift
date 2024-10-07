@@ -13,6 +13,7 @@ public final class RoomCaptureModel: RoomCaptureSessionDelegate, ObservableObjec
     private(set) lazy var roomCaptureView: RoomCaptureView = {
         let view = RoomCaptureView()
         view.captureSession.delegate = self
+//        view.delegate = self
         return view
     }()
     
@@ -33,6 +34,12 @@ public final class RoomCaptureModel: RoomCaptureSessionDelegate, ObservableObjec
     @Published var status: Status = .initial
     var finalResults: CapturedRoom?
     @Published var activityItem: ActivityItem?
+    
+//    public init() {}
+//    
+//    public required init?(coder: NSCoder) {
+//        fatalError("Error when initializing RoomCaptureModel")
+//    }
 
     public func startCapture() {
         roomCaptureView.captureSession.run(configuration: captureSessionConfiguration)
@@ -44,7 +51,7 @@ public final class RoomCaptureModel: RoomCaptureSessionDelegate, ObservableObjec
         status = .finished
     }
     
-    public func exportData() {
+    public func exportData() throws {
         let destinationFolderURL = FileManager.default.temporaryDirectory.appending(path: "Export")
         let destinationURL = destinationFolderURL.appending(path: "Room.usdz")
         let capturedRoomURL = destinationFolderURL.appending(path: "Room.json")
@@ -56,10 +63,10 @@ public final class RoomCaptureModel: RoomCaptureSessionDelegate, ObservableObjec
             try jsonData.write(to: capturedRoomURL)
             try finalResults?.export(to: destinationURL, exportOptions: .parametric)
             
-            activityItem = ActivityItem(items: [destinationFolderURL])
+            activityItem = ActivityItem(itemsArray: [destinationFolderURL])
             
         } catch {
-            print("Error = \(error)")
+            throw error
         }
     }
     
@@ -69,3 +76,11 @@ public final class RoomCaptureModel: RoomCaptureSessionDelegate, ObservableObjec
         }
     }
 }
+
+//extension RoomCaptureModel: RoomCaptureViewDelegate {
+//    public func encode(with coder: NSCoder) {}
+//    
+//    public func captureView(didPresent processedResult: CapturedRoom, error: (any Error)?) {
+//        finalResults = processedResult
+//    }
+//}

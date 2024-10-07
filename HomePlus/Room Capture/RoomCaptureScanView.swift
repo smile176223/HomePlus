@@ -36,7 +36,9 @@ public struct RoomCaptureScanView: View {
                 Spacer()
                 
                 CapsuleView {
-                    Button("Export", action: model.exportData)
+                    Button("Export") {
+                        try? model.exportData()
+                    }
                 }
                 .activitySheet($model.activityItem)
             }

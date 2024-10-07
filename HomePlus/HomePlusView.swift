@@ -13,7 +13,7 @@ struct HomePlusView: View {
             VStack {
                 Image(systemName: "house")
                     .imageScale(.large)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.blue)
                     .padding(.bottom, 8)
                 
                 Text("RoomPlan 2D")
@@ -28,7 +28,7 @@ struct HomePlusView: View {
                     RoomCaptureScanView()
                 }
                 .padding()
-                .background(.gray)
+                .background(.blue)
                 .foregroundColor(.white)
                 .clipShape(Capsule())
                 .fontWeight(.bold)

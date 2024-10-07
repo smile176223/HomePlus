@@ -35,12 +35,29 @@ public struct RoomCaptureScanView: View {
             VStack {
                 Spacer()
                 
-                CapsuleView {
-                    Button("Export") {
-                        try? model.exportData()
+                HStack {
+                    CircleView {
+                        Button {
+                            try? model.exportData()
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                                .foregroundStyle(Color.white)
+                        }
+                    }
+                    .activitySheet($model.activityItem)
+                    
+                    Spacer()
+                    
+                    CircleView {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "book")
+                                .foregroundStyle(Color.white)
+                        }
                     }
                 }
-                .activitySheet($model.activityItem)
+                .padding([.leading, .trailing, .bottom], 24)
             }
         }
     }

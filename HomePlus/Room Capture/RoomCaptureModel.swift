@@ -32,8 +32,8 @@ public final class RoomCaptureModel: RoomCaptureSessionDelegate, ObservableObjec
     }
     
     @Published var status: Status = .initial
-    var finalResults: CapturedRoom?
     @Published var activityItem: ActivityItem?
+    var finalResults: CapturedRoom?
     
 //    public init() {}
 //    

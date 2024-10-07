@@ -1,5 +1,5 @@
 //
-//  CapsuleView.swift
+//  CircleView.swift
 //  HomePlus
 //
 //  Created by Liam on 2024/10/7.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CapsuleView<ContentView: View>: View {
+struct CircleView<ContentView: View>: View {
     
     var contentView: () -> ContentView
     
@@ -16,8 +16,6 @@ struct CapsuleView<ContentView: View>: View {
             .padding()
             .background(Color.blue)
             .foregroundColor(.white)
-            .clipShape(Capsule())
-            .fontWeight(.bold)
-            .padding(.bottom)
+            .clipShape(Circle())
     }
 }

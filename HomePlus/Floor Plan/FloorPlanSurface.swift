@@ -63,9 +63,9 @@ class FloorPlanSurface: SKNode {
         case .window:
             drawWindow()
         case .floor:
-            drawWall()
+            break
         @unknown default:
-            drawWall()
+            break
         }
     }
     
@@ -152,7 +152,7 @@ class FloorPlanSurface: SKNode {
         addChild(windowShape)
     }
     
-    // MARK: - Helper functions
+    // MARK: - Helpers
     
     private func createPath(from pointA: CGPoint, to pointB: CGPoint) -> CGMutablePath {
         let path = CGMutablePath()

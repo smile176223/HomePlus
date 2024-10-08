@@ -11,9 +11,6 @@ import RoomPlan
 class FloorPlanSurface: SKNode {
     
     private let capturedSurface: CapturedRoom.Surface
-    private let scalingFactor: CGFloat = 200
-    private let floorPlanBackgroundColor = UIColor.white
-    private let floorPlanSurfaceColor = UIColor.orange
     private let doorZPosition: CGFloat = 20
     private let doorArcZPosition: CGFloat = 21
     private let surfaceWith: CGFloat = 22.0
@@ -23,9 +20,8 @@ class FloorPlanSurface: SKNode {
     private let windowWidth: CGFloat = 8.0
     private let doorArcWidth: CGFloat = 8.0
 
-    
     private var halfLength: CGFloat {
-        CGFloat(capturedSurface.dimensions.x) * scalingFactor / 2
+        CGFloat(capturedSurface.dimensions.x) * Utilities.scalingFactor / 2
     }
     
     private var pointA: CGPoint {
@@ -45,8 +41,8 @@ class FloorPlanSurface: SKNode {
         super.init()
         
         // Set the surface's position using the transform matrix
-        let surfacePositionX = -CGFloat(capturedSurface.transform.position.x) * scalingFactor
-        let surfacePositionY = CGFloat(capturedSurface.transform.position.z) * scalingFactor
+        let surfacePositionX = -CGFloat(capturedSurface.transform.position.x) * Utilities.scalingFactor
+        let surfacePositionY = CGFloat(capturedSurface.transform.position.z) * Utilities.scalingFactor
         self.position = CGPoint(x: surfacePositionX, y: surfacePositionY)
         
         // Set the surface's zRotation using the transform matrix
@@ -79,7 +75,7 @@ class FloorPlanSurface: SKNode {
 
         // Hide the wall underneath the door
         let hideWallShape = createShapeNode(from: hideWallPath)
-        hideWallShape.strokeColor = floorPlanBackgroundColor
+        hideWallShape.strokeColor = Utilities.floorPlanBackgroundColor
         hideWallShape.lineWidth = hideSurfaceWith
         hideWallShape.zPosition = hideSurfaceZPosition
         
@@ -116,7 +112,7 @@ class FloorPlanSurface: SKNode {
         
         // Hide the wall underneath the opening
         let hideWallShape = createShapeNode(from: openingPath)
-        hideWallShape.strokeColor = floorPlanBackgroundColor
+        hideWallShape.strokeColor = Utilities.floorPlanBackgroundColor
         hideWallShape.lineWidth = hideSurfaceWith
         hideWallShape.zPosition = hideSurfaceZPosition
         
@@ -139,7 +135,7 @@ class FloorPlanSurface: SKNode {
         
         // Hide the wall underneath the window
         let hideWallShape = createShapeNode(from: windowPath)
-        hideWallShape.strokeColor = floorPlanBackgroundColor
+        hideWallShape.strokeColor = Utilities.floorPlanBackgroundColor
         hideWallShape.lineWidth = hideSurfaceWith
         hideWallShape.zPosition = hideSurfaceZPosition
         
@@ -164,7 +160,7 @@ class FloorPlanSurface: SKNode {
     
     private func createShapeNode(from path: CGPath) -> SKShapeNode {
         let shapeNode = SKShapeNode(path: path)
-        shapeNode.strokeColor = floorPlanSurfaceColor
+        shapeNode.strokeColor = Utilities.floorPlanSurfaceColor
         shapeNode.lineWidth = surfaceWith
         
         return shapeNode

@@ -69,12 +69,12 @@ class FloorPlanScene: SKScene {
         }
     }
     
-//    private func drawObjects() {
-//        for object in objects {
-//            let objectNode = FloorPlanObject(capturedObject: object)
-//            addChild(objectNode)
-//        }
-//    }
+    private func drawObjects() {
+        for object in objects {
+            let objectNode = FloorPlanObject(capturedObject: object)
+            addChild(objectNode)
+        }
+    }
     
     private func addCamera() {
         let cameraNode = SKCameraNode()
